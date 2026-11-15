@@ -1,0 +1,49 @@
+{
+  "suspicious_hours": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    21,
+    22,
+    23
+  ],
+  "suspicious_countries": [
+    "CN",
+    "BR",
+    "RU",
+    "KP",
+    "NG"
+  ],
+  "suspicious_devices": [
+    "DEV-X999",
+    "DEV-PROXY",
+    "DEV-TEMP",
+    "DEV-UNK1"
+  ],
+  "normal_country": "US",
+  "normal_device": [
+    "DEV-A100",
+    "DEV-B200"
+  ],
+  "normal_hours": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "normal_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ]
+}

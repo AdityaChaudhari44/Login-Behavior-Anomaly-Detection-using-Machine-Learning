@@ -1,0 +1,36 @@
+{
+  "country_map": {
+    "BR": 0,
+    "CN": 1,
+    "IN": 2,
+    "KP": 3,
+    "NG": 4,
+    "RU": 5,
+    "US": 6
+  },
+  "device_map": {
+    "DEV-A100": 0,
+    "DEV-B200": 1,
+    "DEV-PROXY": 2,
+    "DEV-TEMP": 3,
+    "DEV-UNK1": 4,
+    "DEV-X999": 5
+  },
+  "reverse_country_map": {
+    "0": "BR",
+    "1": "CN",
+    "2": "IN",
+    "3": "KP",
+    "4": "NG",
+    "5": "RU",
+    "6": "US"
+  },
+  "reverse_device_map": {
+    "0": "DEV-A100",
+    "1": "DEV-B200",
+    "2": "DEV-PROXY",
+    "3": "DEV-TEMP",
+    "4": "DEV-UNK1",
+    "5": "DEV-X999"
+  }
+}

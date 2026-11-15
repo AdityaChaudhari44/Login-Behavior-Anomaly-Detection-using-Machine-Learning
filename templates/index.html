@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Login System</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        width: 100%;
+      }
+
+      .login-card {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .login-card h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 28px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #555;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+
+      #result {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+        font-size: 1rem;
+        animation: slideDown 0.3s ease;
+      }
+
+      .show {
+        display: block !important;
+      }
+
+      .safe {
+        background-color: #d4edda;
+        color: #155724;
+        border: 2px solid #28a745;
+      }
+
+      .danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 2px solid #dc3545;
+      }
+
+      #features-box {
+        margin-top: 25px;
+        padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 8px;
+        display: none;
+        border-left: 5px solid #667eea;
+      }
+
+      .feature-item {
+        margin: 12px 0;
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-label {
+        font-weight: 600;
+        color: #333;
+      }
+
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login-card">
+        <h2>🔐 Secure Login Portal</h2>
+
+        <div class="form-group">
+          <label>👤 Username</label>
+          <input type="text" id="username" placeholder="Enter your username" />
+        </div>
+
+        <div class="form-group">
+          <label>🔑 Password</label>
+          <input type="password" id="password" placeholder="Enter your password" />
+        </div>
+
+        <div class="form-group">
+          <label>📅 Login Date & Time</label>
+          <input type="datetime-local" id="login-datetime" />
+        </div>
+
+        <div class="form-group">
+          <label>🌍 Location (Simulated)</label>
+          <select id="country">
+            <option value="US">🇺🇸 USA (Normal)</option>
+            <option value="CN">🇨🇳 China (Anomaly)</option>
+            <option value="IN">🇮🇳 India (Normal)</option>
+            <option value="BR">🇧🇷 Brazil (Suspicious)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="device">Device</label>
+          <select id="device">
+            <option value="DEV-A100">Known device A</option>
+            <option value="DEV-B200">Known device B</option>
+            <option value="DEV-X999">Unknown device</option>
+            <option value="DEV-PROXY">Proxy device</option>
+            <option value="DEV-TEMP">Temporary device</option>
+            <option value="DEV-UNK1">Unrecognized device</option>
+          </select>
+        </div>
+
+        <button onclick="handleLogin()">🚀 Login</button>
+
+        <div id="result"></div>
+
+        <div id="features-box">
+          <h3>📊 Anomaly Detection Analysis</h3>
+          <div class="feature-item">
+            <span class="feature-label">⏰ Hour:</span>
+            <span class="feature-value" id="feature-hour">-</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-label">📆 Day of Week:</span>
+            <span class="feature-value" id="feature-day">-</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-label">🗺️ Country Code:</span>
+            <span class="feature-value" id="feature-country">-</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-label">📱 Device Code:</span>
+            <span class="feature-value" id="feature-device">-</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-label">✓ Detection Status:</span>
+            <span class="feature-value" id="feature-status">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Set default date/time to now
+      window.onload = function() {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('login-datetime').value = now.toISOString().slice(0,16);
+      };
+
+      const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+      async function handleLogin() {
+        const username = document.getElementById("username").value;
+        const country = document.getElementById("country").value;
+        const device = document.getElementById("device").value;
+        const loginDateTime = document.getElementById("login-datetime").value;
+        const resultDiv = document.getElementById("result");
+        const featuresBox = document.getElementById("features-box");
+
+        if (!username) {
+          alert("Please enter a username");
+          return;
+        }
+
+        // --- UPDATED DATE LOGIC ---
+        const loginDate = new Date(loginDateTime);
+        if (Number.isNaN(loginDate.getTime())) {
+          resultDiv.innerText = "Please enter a valid login date and time.";
+          resultDiv.className = "show danger";
+          return;
+        }
+        const hour = loginDate.getHours();
+
+        // jsDay: 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+        const jsDay = loginDate.getDay(); 
+
+        // Shift logic: Monday = 0, Friday = 4, Sunday = 6
+        const dayOfWeek = (jsDay === 0) ? 6 : jsDay - 1; 
+
+        resultDiv.innerText = "Analyzing login pattern...";
+        resultDiv.classList.add("show");
+
+        try {
+          // Sending corrected data to backend
+          const response = await fetch("/api/v1/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              username: username,
+              country: country,
+              device: device,
+              hour: hour,
+              day: dayOfWeek 
+            })
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.message || "The login check could not be completed.");
+          }
+
+          // Update UI based on Anomaly Detection
+          resultDiv.innerText = `${data.decision}: ${data.login_analysis}`;
+          resultDiv.className = data.decision === "ALLOW" ? "show safe" : "show danger";
+
+          // Fill the Analysis Box
+          document.getElementById("feature-hour").innerText = data.features_analyzed.hour;
+          document.getElementById("feature-day").innerText = `${dayNames[data.features_analyzed.day]} (${data.features_analyzed.day})`;
+          document.getElementById("feature-country").innerText = data.features_analyzed.country;
+          document.getElementById("feature-device").innerText = data.features_analyzed.device;
+          document.getElementById("feature-status").innerText = data.decision;
+
+          featuresBox.style.display = "block";
+
+        } catch (error) {
+          resultDiv.innerText = error.message || "Error connecting to server.";
+          resultDiv.className = "show danger";
+        }
+      }
+    </script>
+  </body>
+</html>
